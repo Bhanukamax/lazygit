@@ -22,6 +22,8 @@ func (gui *Gui) handleEditorKeypress(textArea *gocui.TextArea, key gocui.Key, ch
 		textArea.MoveCursorDown()
 	case key == gocui.KeyArrowUp:
 		textArea.MoveCursorUp()
+	case ch == 'd' && mod == gocui.ModAlt:
+	// Todo: implement delete next word
 	case ch == 'b' && mod == gocui.ModAlt:
 		textArea.MoveLeftWord()
 	case key == gocui.KeyArrowLeft && (mod&gocui.ModAlt) != 0:
