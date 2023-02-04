@@ -40,11 +40,11 @@ func (self *TextArea) BackSpaceChar() {
 	self.cursor--
 }
 
+// This is not the best implementation
 func (self *TextArea) DeleteToEndOfWord() {
 	if self.atEnd() {
 		return
 	}
-	// test
 	for len(self.content) > 2 && len(self.content) > self.cursor + 1{
 		if !self.atEnd() {
 			// keep deleting chars
@@ -63,7 +63,6 @@ func (self *TextArea) DeleteToEndOfWord() {
 						}
 					}
 				}
-
 				return
 			}
 		} else {
