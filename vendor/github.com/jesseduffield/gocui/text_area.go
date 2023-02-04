@@ -44,7 +44,8 @@ func (self *TextArea) DeleteToEndOfWord() {
 	if self.atEnd() {
 		return
 	}
-	for true {
+	// test
+	for len(self.content) > 2 && len(self.content) > self.cursor + 1{
 		if !self.atEnd() {
 			// keep deleting chars
 			self.content = append(self.content[:self.cursor], self.content[self.cursor+1:]...)
@@ -53,9 +54,16 @@ func (self *TextArea) DeleteToEndOfWord() {
 			}
 			if strings.ContainsRune(WHITESPACES, self.content[self.cursor]) {
 				// keep deleting until we found a single white space
-				if strings.ContainsRune(WHITESPACES, self.content[self.cursor + 1]) {
-					self.content = append(self.content[:self.cursor], self.content[self.cursor+1:]...)
+				if len(self.content) > 2 && len(self.content) > self.cursor + 2{
+					for strings.ContainsRune(WHITESPACES, self.content[self.cursor + 1]) {
+						if len(self.content) > 2 && len(self.content) > self.cursor + 2 {
+							self.content = append(self.content[:self.cursor], self.content[self.cursor+1:]...)
+						} else {
+							return
+						}
+					}
 				}
+
 				return
 			}
 		} else {
