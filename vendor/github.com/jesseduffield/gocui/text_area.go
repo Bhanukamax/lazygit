@@ -40,6 +40,38 @@ func (self *TextArea) BackSpaceChar() {
 	self.cursor--
 }
 
+func (self *TextArea) DeleteToEndOfWord() {
+	// self.MoveToBeginingOfNextWord()
+	// self.BackSpaceWord()
+	// for !self.atLineEnd() && strings.ContainsRune(WHITESPACES, self.content[self.cursor]) {
+	// 	self.cursor++
+	// }
+	if self.atEnd() {
+		return
+	}
+	for true {
+		if !self.atEnd() {
+			// self.cursor++
+			self.content = append(self.content[:self.cursor], self.content[self.cursor+1:]...)
+			if self.atEnd() {
+				// self.cursor--
+				return
+			}
+			if strings.ContainsRune(WHITESPACES, self.content[self.cursor]) {
+				return
+			}
+		} else {
+			return
+		}
+	}
+	return
+	// if self.atEnd() {
+	// 	return
+	// }
+	//
+	// self.content = append(self.content[:self.cursor], self.content[self.cursor+1:]...)
+}
+
 func (self *TextArea) DeleteChar() {
 	if self.atEnd() {
 		return
