@@ -88,6 +88,34 @@ func (self *TextArea) MoveLeftWord() {
 	}
 }
 
+func (self *TextArea) MoveToBeginingOfNextWord() {
+	if self.atEnd() {
+		return
+	}
+	if self.atLineEnd() {
+		self.cursor++
+		return
+	}
+
+	for !self.atLineEnd() && strings.ContainsRune(WHITESPACES, self.content[self.cursor]) {
+		self.cursor++
+	}
+	separators := false
+	for !self.atLineEnd() && strings.ContainsRune(WORD_SEPARATORS, self.content[self.cursor]) {
+		self.cursor++
+		separators = true
+	}
+	if !separators {
+		for !self.atLineEnd() && !strings.ContainsRune(WHITESPACES+WORD_SEPARATORS, self.content[self.cursor]) {
+			self.cursor++
+		}
+	}
+	if self.atEnd() {
+		return
+	}
+	self.cursor++
+}
+
 func (self *TextArea) MoveRightWord() {
 	if self.atEnd() {
 		return

@@ -31,7 +31,7 @@ func (gui *Gui) handleEditorKeypress(textArea *gocui.TextArea, key gocui.Key, ch
 	case key == gocui.KeyArrowLeft || key == gocui.KeyCtrlB:
 		textArea.MoveCursorLeft()
 	case ch == 'f' && mod == gocui.ModAlt:
-		textArea.MoveRightWord()
+		textArea.MoveToBeginingOfNextWord()
 	case key == gocui.KeyArrowRight && (mod&gocui.ModAlt) != 0:
 		textArea.MoveRightWord()
 	case key == gocui.KeyArrowRight || key == gocui.KeyCtrlF:
