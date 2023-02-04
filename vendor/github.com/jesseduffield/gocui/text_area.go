@@ -41,23 +41,21 @@ func (self *TextArea) BackSpaceChar() {
 }
 
 func (self *TextArea) DeleteToEndOfWord() {
-	// self.MoveToBeginingOfNextWord()
-	// self.BackSpaceWord()
-	// for !self.atLineEnd() && strings.ContainsRune(WHITESPACES, self.content[self.cursor]) {
-	// 	self.cursor++
-	// }
 	if self.atEnd() {
 		return
 	}
 	for true {
 		if !self.atEnd() {
-			// self.cursor++
+			// keep deleting chars
 			self.content = append(self.content[:self.cursor], self.content[self.cursor+1:]...)
 			if self.atEnd() {
-				// self.cursor--
 				return
 			}
 			if strings.ContainsRune(WHITESPACES, self.content[self.cursor]) {
+				// keep deleting until we found a single white space
+				if strings.ContainsRune(WHITESPACES, self.content[self.cursor + 1]) {
+					self.content = append(self.content[:self.cursor], self.content[self.cursor+1:]...)
+				}
 				return
 			}
 		} else {
@@ -65,11 +63,6 @@ func (self *TextArea) DeleteToEndOfWord() {
 		}
 	}
 	return
-	// if self.atEnd() {
-	// 	return
-	// }
-	//
-	// self.content = append(self.content[:self.cursor], self.content[self.cursor+1:]...)
 }
 
 func (self *TextArea) DeleteChar() {
